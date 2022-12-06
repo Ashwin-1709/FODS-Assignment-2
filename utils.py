@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import random
 import math
 
-#cost function and gradient (in the full model)
-
 
 #normalizing both training and testing
 def normalization(x, xt):
@@ -16,7 +14,7 @@ def normalization(x, xt):
     return [x, xt]
 
 def read(filename):
-    df = pd.read.csv(filename)
+    df = pd.read_csv(filename)
     return df
 
 #function to preprocess the data
@@ -42,6 +40,7 @@ def preprocessing(df):
     return [x_train, y_train, x_test, y_test]
 
 
+#cost function and gradient (in the full model)
 def costFunction(X, W, Y):
     difference = (X@W) - Y
     ans = (difference.T@difference) / (2)
@@ -82,3 +81,9 @@ def predictions(x_train, y_train, x_test, y_test, w):
     y_predicted_train = x_train@w
     error_train = rootMeanSquareError(y_train, y_predicted_train)
     return [error_test, error_train]
+
+def regression(df):
+    X_train, Y_train, X_test, Y_test = preprocessing(df)
+    cost, weight = model(X_train, Y_train)
+    error_test, error_train = predictions(X_train, Y_train, X_test, Y_test, weight)
+    return error_test, error_train
