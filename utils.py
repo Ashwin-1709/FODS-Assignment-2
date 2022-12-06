@@ -15,12 +15,14 @@ def normalization(x, xt):
     xt = (xt - mn) / std
     return [x, xt]
 
+def read(filename):
+    df = pd.read.csv(filename)
+    return df
 
 #function to preprocess the data
 #unwrap the return value into 4 variables
 #Eg: x_train, y_train, x_test, y_test = preprocessing('data.csv')
-def preprocessing(filename):
-    df = pd.read_csv(filename)
+def preprocessing(df):
     training = df.sample(frac=0.8, random_state = 79)
     testing = df.drop(training.index)
     target = df.columns[-1]
