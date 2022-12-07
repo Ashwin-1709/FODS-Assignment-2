@@ -57,11 +57,11 @@ def gradientDescent(X, Y, W, alpha, iter):
 
 #unwrap the return value into two variables
 #Eg: costs, weights = model(X_train, Y_train)
-def model(X_train, Y_train):
+def model(X_train, Y_train,iters,alpha):
     weights = [0 for i in range(len(X_train[0]))]
     weights = np.array(weights, dtype = np.float64)
     weights = weights.reshape(len(weights), 1)
-    costs, weights = gradientDescent(X_train, Y_train, weights, 0.00001, 100000)
+    costs, weights = gradientDescent(X_train, Y_train, weights, alpha, iters)
     return [costs, weights]
 
 
@@ -82,8 +82,8 @@ def predictions(x_train, y_train, x_test, y_test, w):
     error_train = rootMeanSquareError(y_train, y_predicted_train)
     return [error_test, error_train]
 
-def regression(df):
+def regression(df,iters,alpha):
     X_train, Y_train, X_test, Y_test = preprocessing(df)
-    cost, weight = model(X_train, Y_train)
+    cost, weight = model(X_train, Y_train, iters, alpha)
     error_test, error_train = predictions(X_train, Y_train, X_test, Y_test, weight)
     return error_test, error_train
